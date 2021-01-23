@@ -7,6 +7,8 @@
 ``php artisan app-deploy``
 ``npm run dev``
 
+Caso obtenha o erro "JWT payload does not contain the required claims", acesse o arquivo config/jwt.php e comente o item 'required_claims.exp'
+
 # Build
 ``npm run build``
 

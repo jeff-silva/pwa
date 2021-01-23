@@ -242,10 +242,6 @@ class User extends Authenticatable implements JWTSubject
             'name' => 'User',
             'menu' => [
                 ['to'=>'/dashboard', 'title'=>'Dashboard', 'icon'=>'fas fa-home', 'children'=>[]],
-                ['to'=>'', 'title'=>'Tevep', 'icon'=>'fas fa-shopping-bag', 'children'=>[
-                    ['to'=>'/tevep/', 'title'=>'Projetos', 'icon'=>'fas fa-shopping-bag', 'children'=>[]],
-                    ['to'=>'/tevep/0/', 'title'=>'Novo', 'icon'=>'fas fa-shopping-bag', 'children'=>[]],
-                ]],
                 ['to'=>'', 'title'=>'Configurações', 'icon'=>'fas fa-cog', 'children'=>[
                     ['to'=>'/user/me/', 'title'=>'Meus dados', 'icon'=>'fas fa-cog', 'children'=>[]],
                 ]],
@@ -257,10 +253,6 @@ class User extends Authenticatable implements JWTSubject
             'name' => 'Root Group',
             'menu' => [
                 ['to'=>'/dashboard', 'title'=>'Dashboard', 'icon'=>'fas fa-home', 'children'=>[]],
-                ['to'=>'', 'title'=>'Tevep', 'icon'=>'fas fa-shopping-bag', 'children'=>[
-                    ['to'=>'/tevep/', 'title'=>'Projetos', 'icon'=>'fas fa-shopping-bag', 'children'=>[]],
-                    ['to'=>'/tevep/0/', 'title'=>'Novo', 'icon'=>'fas fa-shopping-bag', 'children'=>[]],
-                ]],
                 ['to'=>'/user', 'title'=>'Usuários', 'icon'=>'fas fa-user', 'children'=>[]],
                 ['to'=>'', 'title'=>'Configurações', 'icon'=>'fas fa-cog', 'children'=>[
                     ['to'=>'/user/me/', 'title'=>'Meus dados', 'icon'=>'fas fa-cog', 'children'=>[]],
