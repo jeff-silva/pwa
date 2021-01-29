@@ -2,7 +2,7 @@
 <template>
     <div class="ui-select" style="position:relative;">
 
-        <div class="form-control" style="height:auto;">
+        <div class="form-control" style="height:auto;" ref="formControl" @click="$refs.dropdown.show($event)">
 
           <!-- if multiple -->
           <div v-if="props.multiple">
@@ -14,8 +14,12 @@
 
             <!-- if populated -->
             <div v-else>
-              <slot name="selected" :option="props.value[0]"></slot>
-              <span classs="pl-2" v-if="props.value.length>1">+{{ props.value.length-1 }}</span>
+              <div class="d-flex align-items-center">
+                <div class="flex-grow-1" style="overflow:hidden; white-space:nowrap;">
+                  <slot name="selected" v-for="v in props.value" :option="v"></slot>
+                </div>
+                <div class="pl-2" v-if="props.value.length>1">{{ props.value.length }}</div>
+              </div>
             </div>
           </div>
 
@@ -34,19 +38,19 @@
           </div>
         </div>
 
-        <div class="ui-select-dropdown bg-white shadow mt-1" :class="{'ui-select-dropdown-shown':props.dropdown}">
-          <div class="ui-select-options">
-            <slot name="options" :select="select" :selected="selected"></slot>
-          </div>
-        </div>
+        <ui-dropdown ref="dropdown">
+            <template #content>
+              <div class="bg-white shadow mt-1">
+                <slot name="options" :select="select" :selected="selected"></slot>
+              </div>
+            </template>
+        </ui-dropdown>
     </div>
 </template>
 
 
 <style>
 .ui-select * {transition: all 300ms ease;}
-.ui-select-dropdown {visibility:hidden; opacity:0; height:0px; position:absolute; top:100%; left:0px; width:100%; z-index:9;}
-.ui-select-dropdown-shown {visibility:visible; opacity:1; height:auto;}
 .ui-select > .form-control {cursor:pointer;}
 </style>
 
@@ -82,12 +86,6 @@ export default {
       return {
         options: [],
         props: Object.assign({}, this.$props),
-
-        events: [
-          {type:'click', handler: (ev) => {
-            this.props.dropdown = this.$el==ev.target.closest('.ui-select');
-          }},
-        ],
       };
   },
 
@@ -108,7 +106,6 @@ export default {
       },
 
       setDropdown(value=null) {
-        this.options = this.getOptions();
         value = value===null? (!!this.props.dropdown): value;
         this.props.dropdown = value;
       },
@@ -154,16 +151,6 @@ export default {
   mounted() {
     this.options = this.getOptions();
     this.setDropdown();
-
-    this.events.forEach(ev => {
-      window.addEventListener(ev.type, ev.handler);
-    });
-  },
-
-  beforeDestroy() {
-    this.events.forEach(ev => {
-      window.removeEventListener(ev.type, ev.handler);
-    });
   },
 }
 </script>
